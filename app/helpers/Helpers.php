@@ -59,5 +59,9 @@ class Helpers {
     public static function constval($name){
         return \DB::table('constval')->where('name',$name)->first()->value;
     }
+    
+    public static function  tableColumns($tableName){
+        return \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $tableName));
+    }
 
 }

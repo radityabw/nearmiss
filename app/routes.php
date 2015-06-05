@@ -26,6 +26,10 @@ Route::group(array('prefix' => 'master'), function() {
     Route::controller('safetyhubungan', 'App\Controllers\Master\MsafetyhubunganController');
     Route::controller('jenispekerjaan', 'App\Controllers\Master\MsafetyjenispekerjaanController');
     Route::controller('jenisbahaya', 'App\Controllers\Master\MsafetyjenisbahayaController');
+    Route::controller('safetykeadaan', 'App\Controllers\Master\MsafetykeadaanController');
+    Route::controller('safetyklasifikasi', 'App\Controllers\Master\MsafetyklasifikasiController');
+    Route::controller('group', 'App\Controllers\Master\MgroupController');
+    Route::controller('vendor', 'App\Controllers\Master\MvendorController');
 });
 
 
