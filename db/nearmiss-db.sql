@@ -68,16 +68,20 @@ CREATE TABLE IF NOT EXISTS `constval` (
   `name` varchar(250) DEFAULT NULL,
   `value` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.constval: ~4 rows (approximately)
+-- Dumping data for table she.constval: ~8 rows (approximately)
 DELETE FROM `constval`;
 /*!40000 ALTER TABLE `constval` DISABLE KEYS */;
 INSERT INTO `constval` (`id`, `name`, `value`) VALUES
 	(1, 'sf_anggotabadan_code_prefix', 'AB'),
 	(2, 'show_number_datatable', '10'),
 	(3, 'sf_cedera_code_prefix', 'CE'),
-	(4, 'sf_hubungan_code_prefix', 'SH');
+	(4, 'sf_hubungan_code_prefix', 'SH'),
+	(5, 'sf_jenispekerjaan_code_prefix', 'JP'),
+	(6, 'sf_jenisbahaya_code_prefix', 'JB'),
+	(7, 'sf_keadaan_code_prefix', 'SK'),
+	(8, 'sf_klasifikasi_code_prefix', 'KS');
 /*!40000 ALTER TABLE `constval` ENABLE KEYS */;
 
 
@@ -126,27 +130,27 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `order` int(11) DEFAULT NULL,
   `icon` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.menu: ~24 rows (approximately)
+-- Dumping data for table she.menu: ~25 rows (approximately)
 DELETE FROM `menu`;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
 INSERT INTO `menu` (`id`, `nama`, `url`, `if_url`, `parent_id`, `publish`, `order`, `icon`) VALUES
 	(1, 'Home', 'home', 'home', 0, 'Y', 1, 'fa-home'),
 	(2, 'Master', '#', 'master*', 0, 'Y', 2, 'fa-th-large'),
 	(3, 'Anggota Badan', 'master/safetyanggotabadan', 'master/safetyanggotabadan*', 2, 'Y', 1, NULL),
-	(4, 'Cedera', 'master/safetycedera', NULL, 2, 'Y', 2, NULL),
-	(5, 'Hub dengan plant', 'master/safetyhubungan', NULL, 2, 'Y', 3, NULL),
-	(6, 'Jenis Pekerjaan', NULL, NULL, 2, 'Y', 4, NULL),
-	(7, 'Jenis Bahaya', NULL, NULL, 2, 'Y', 5, NULL),
-	(8, 'Keadaan', NULL, NULL, 2, 'Y', 6, NULL),
-	(9, 'Pegawai', NULL, NULL, 2, 'Y', 7, NULL),
-	(10, 'Departemen', NULL, NULL, 2, 'Y', 8, NULL),
-	(11, 'Grup', NULL, NULL, 2, 'Y', 9, NULL),
-	(12, 'Vendro', NULL, NULL, 2, 'Y', 10, NULL),
-	(13, 'Work Request', NULL, NULL, 2, 'Y', 11, NULL),
-	(14, 'Sumber Penyebab', NULL, NULL, 2, 'Y', 12, NULL),
-	(15, 'Resepsionis', NULL, NULL, 2, 'Y', 13, NULL),
+	(4, 'Cedera', 'master/safetycedera', 'master/safetycedera*', 2, 'Y', 2, NULL),
+	(5, 'Hub dengan plant', 'master/safetyhubungan', 'master/safetyhubungan*', 2, 'Y', 3, NULL),
+	(6, 'Jenis Pekerjaan', 'master/jenispekerjaan', 'master/jenispekerjaan*', 2, 'Y', 4, NULL),
+	(7, 'Jenis Bahaya', 'master/jenisbahaya', 'master/jenisbahaya*', 2, 'Y', 5, NULL),
+	(8, 'Keadaan', 'master/safetykeadaan', 'master/safetykeadaan*', 2, 'Y', 6, NULL),
+	(9, 'Pegawai', NULL, NULL, 2, 'Y', 10, NULL),
+	(10, 'Departemen', NULL, NULL, 2, 'Y', 11, NULL),
+	(11, 'Group', 'master/group', 'master/group*', 2, 'Y', 8, NULL),
+	(12, 'Vendor', 'master/vendor', 'master/vendor*', 2, 'Y', 9, NULL),
+	(13, 'Work Request', NULL, NULL, 2, 'Y', 12, NULL),
+	(14, 'Sumber Penyebab', NULL, NULL, 2, 'Y', 13, NULL),
+	(15, 'Resepsionis', NULL, NULL, 2, 'Y', 14, NULL),
 	(16, 'Transaksi', NULL, NULL, 0, 'Y', 3, 'fa-download'),
 	(17, 'Safety', NULL, NULL, 16, 'Y', 1, NULL),
 	(18, 'Near Miss', NULL, NULL, 16, 'Y', 2, NULL),
@@ -155,7 +159,8 @@ INSERT INTO `menu` (`id`, `nama`, `url`, `if_url`, `parent_id`, `publish`, `orde
 	(21, 'Aturan Keselamatan', NULL, NULL, 16, 'Y', 5, NULL),
 	(22, 'Monitoring', NULL, NULL, 0, 'Y', 4, 'fa-signal'),
 	(23, 'Near Miss', NULL, NULL, 22, 'Y', 1, NULL),
-	(24, 'Grafik Near Miss', NULL, NULL, 22, 'Y', 2, NULL);
+	(24, 'Grafik Near Miss', NULL, NULL, 22, 'Y', 2, NULL),
+	(25, 'Klasifikasi', 'master/safetyklasifikasi', 'master/safetyklasifikasi*', 2, 'Y', 7, NULL);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 
@@ -473,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `safety_hubungan` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
@@ -484,11 +489,11 @@ CREATE TABLE IF NOT EXISTS `safety_hubungan` (
 DELETE FROM `safety_hubungan`;
 /*!40000 ALTER TABLE `safety_hubungan` DISABLE KEYS */;
 INSERT INTO `safety_hubungan` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
-	('Sangat Terkait', 'SH1', 'admin', NULL, 1),
-	('Terkait', 'SH2', 'admin', NULL, 2),
-	('Mungkin Terkait', 'SH3', 'admin', NULL, 3),
-	('Kecil kemungkinannya terkait', 'SH4', 'admin', NULL, 4),
-	('Tidak Terkait', 'SH5', 'admin', NULL, 5);
+	('Sangat Terkait', 'SH1', 'admin', '2015-06-05 11:12:55', 1),
+	('Terkait', 'SH2', 'admin', '2015-06-05 11:12:55', 2),
+	('Mungkin Terkait', 'SH3', 'admin', '2015-06-05 11:12:55', 3),
+	('Kecil kemungkinannya terkait', 'SH4', 'admin', '2015-06-05 11:12:55', 4),
+	('Tidak Terkait', 'SH5', 'admin', '2015-06-05 11:12:55', 5);
 /*!40000 ALTER TABLE `safety_hubungan` ENABLE KEYS */;
 
 
@@ -498,16 +503,52 @@ CREATE TABLE IF NOT EXISTS `safety_jenisbahaya` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_971944076` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.safety_jenisbahaya: ~0 rows (approximately)
+-- Dumping data for table she.safety_jenisbahaya: ~35 rows (approximately)
 DELETE FROM `safety_jenisbahaya`;
 /*!40000 ALTER TABLE `safety_jenisbahaya` DISABLE KEYS */;
+INSERT INTO `safety_jenisbahaya` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
+	('Terkena Bahan Kimia', 'JB1', 'admin', '2015-06-05 11:22:45', 1),
+	('Jatuh pada ketinggian yang sama', 'JB10', 'admin', '2015-06-05 11:24:17', 10),
+	('Gerak tubuh berlebihan;terpeleset,terkilir', 'JB11', 'admin', '2015-06-05 11:24:30', 11),
+	('Gerak tubuh berlebihan;gerakan berulang', 'JB12', 'admin', '2015-06-05 11:24:36', 12),
+	('Gerak tubuh berlebihan;gerakan berulang', 'JB13', 'admin', '2015-06-05 11:24:43', 13),
+	('Lain-lain, silahkan dijelaskan dibagian uraian', 'JB14', 'admin', '2015-06-05 11:24:50', 14),
+	('Membentur', 'JB15', 'admin', '2015-06-05 11:25:00', 15),
+	('Terbentu', 'JB16', 'admin', '2015-06-05 11:25:02', 16),
+	('Tidak Diketahui', 'JB17', 'admin', '2015-06-05 11:25:11', 17),
+	('Menabrak', 'JB18', 'admin', '2015-06-05 11:25:25', 18),
+	('Tertabrak', 'JB19', 'admin', '2015-06-05 11:25:29', 19),
+	('Terjepit, Tertusuk, Tergencet, Terpukul', 'JB2', 'admin', '2015-06-05 11:23:03', 2),
+	('Tersandung', 'JB20', 'admin', '2015-06-05 11:25:37', 20),
+	('Terjerembab', 'JB21', 'admin', '2015-06-05 11:25:40', 21),
+	('Tertimpa', 'JB22', 'admin', '2015-06-05 11:25:53', 22),
+	('Roboh', 'JB23', 'admin', '2015-06-05 11:25:56', 23),
+	('Pecah', 'JB24', 'admin', '2015-06-05 11:25:59', 24),
+	('Hancur', 'JB25', 'admin', '2015-06-05 11:26:06', 25),
+	('Patah', 'JB26', 'admin', '2015-06-05 11:26:08', 26),
+	('Terbakar', 'JB27', 'admin', '2015-06-05 11:26:10', 27),
+	('Bocor', 'JB28', 'admin', '2015-06-05 11:26:16', 28),
+	('Terpapar Asap/Uap', 'JB29', 'admin', '2015-06-05 11:26:23', 29),
+	('Tersengat Listrik', 'JB3', 'admin', '2015-06-05 11:23:19', 3),
+	('Terpapar Debu/Partikel Kecil', 'JB30', 'admin', '2015-06-05 11:26:34', 30),
+	('Safety & 5R', 'JB31', 'admin', '2015-06-05 11:26:57', 31),
+	('Tumpah & 5R', 'JB32', 'admin', '2015-06-05 11:27:06', 32),
+	('5R', 'JB33', 'admin', '2015-06-05 11:27:11', 33),
+	('Jalur darurat terhalang', 'JB34', 'admin', '2015-06-05 11:27:20', 34),
+	('Kontaminasi & 5R', 'JB35', 'admin', '2015-06-05 11:27:28', 35),
+	('Terkena Api/Panas', 'JB4', 'admin', '2015-06-05 11:23:25', 4),
+	('Radiasi (Nuklir)', 'JB5', 'admin', '2015-06-05 11:23:36', 5),
+	('Emisi ke udara', 'JB6', 'admin', '2015-06-05 11:23:43', 6),
+	('Emisi/tumpah ke tanah', 'JB7', 'admin', '2015-06-05 11:23:51', 7),
+	('Emisi/tumpah ke air', 'JB8', 'admin', '2015-06-05 11:24:00', 8),
+	('Jatuh dari ketinggian', 'JB9', 'admin', '2015-06-05 11:24:07', 9);
 /*!40000 ALTER TABLE `safety_jenisbahaya` ENABLE KEYS */;
 
 
@@ -517,16 +558,28 @@ CREATE TABLE IF NOT EXISTS `safety_jp` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_907943848` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Jenis Pekerjaan';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Jenis Pekerjaan';
 
--- Dumping data for table she.safety_jp: ~0 rows (approximately)
+-- Dumping data for table she.safety_jp: ~11 rows (approximately)
 DELETE FROM `safety_jp`;
 /*!40000 ALTER TABLE `safety_jp` DISABLE KEYS */;
+INSERT INTO `safety_jp` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
+	('Perawatan Pabrik', 'JP1', 'admin', '2015-06-05 11:13:10', 1),
+	('Tumpukan Sampah Bekas Project', 'JP10', 'admin', '2015-06-05 11:13:10', 10),
+	('Tumpukan Sampah Pil Koplo', 'JP11', 'admin', '2015-06-05 11:13:10', 11),
+	('Administrasi (Pekerjaan Kantor)', 'JP2', 'admin', '2015-06-05 11:13:10', 2),
+	('Konstruksi', 'JP3', 'admin', '2015-06-05 11:13:10', 3),
+	('Laboratorium', 'JP4', 'admin', '2015-06-05 11:13:10', 4),
+	('Rekayasa', 'JP5', 'admin', '2015-06-05 11:13:10', 5),
+	('Operasi (Refinery, OM, LOBP)', 'JP6', 'admin', '2015-06-05 11:13:10', 6),
+	('Penyimpanan, Pengepakan & Pengiriman', 'JP7', 'admin', '2015-06-05 11:13:10', 7),
+	('Pekerjaan Umum', 'JP8', 'admin', '2015-06-05 11:13:10', 8),
+	('Galian Tanah', 'JP9', 'admin', '2015-06-05 11:13:10', 9);
 /*!40000 ALTER TABLE `safety_jp` ENABLE KEYS */;
 
 
@@ -536,16 +589,52 @@ CREATE TABLE IF NOT EXISTS `safety_keadaan` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1099944532` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.safety_keadaan: ~0 rows (approximately)
+-- Dumping data for table she.safety_keadaan: ~35 rows (approximately)
 DELETE FROM `safety_keadaan`;
 /*!40000 ALTER TABLE `safety_keadaan` DISABLE KEYS */;
+INSERT INTO `safety_keadaan` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
+	('Alat/Perkakas Rusak', 'SK1', 'admin', '2015-06-05 16:53:54', 1),
+	('Jarak yang tidak memadahi', 'SK10', 'admin', '2015-06-05 16:55:32', 10),
+	('Rancangan/Konstruksi yang tidak memadahi', 'SK11', 'admin', '2015-06-05 16:55:44', 11),
+	('Alat pelindung diri yang tidak memadahi', 'SK12', 'admin', '2015-06-05 16:55:55', 12),
+	('Pengaturan lalu lintas tidak memadahi', 'SK13', 'admin', '2015-06-05 16:56:06', 13),
+	('Pelatihan tidak memadahi', 'SK14', 'admin', '2015-06-05 16:56:23', 14),
+	('Ventilasi tidak memadahi', 'SK15', 'admin', '2015-06-05 16:56:36', 15),
+	('Prosedur tertulis tidak memadahi', 'SK16', 'admin', '2015-06-05 16:56:49', 16),
+	('Pengamanan tidak memadahi', 'SK17', 'admin', '2015-06-05 16:56:57', 17),
+	('Tempat kerja tidak cukup', 'SK18', 'admin', '2015-06-05 16:57:04', 18),
+	('Tidak ada kondisi bahaya', 'SK19', 'admin', '2015-06-05 16:57:12', 19),
+	('Kebisingan yang berlebih', 'SK2', 'admin', '2015-06-05 16:54:03', 2),
+	('Tidak ada sistem peringatan', 'SK20', 'admin', '2015-06-05 16:57:22', 20),
+	('Lain-lain, harap dijelaskan', 'SK21', 'admin', '2015-06-05 16:57:27', 21),
+	('Tidak tahu', 'SK22', 'admin', '2015-06-05 16:57:34', 22),
+	('Lokasi penyimpanan Baseoil', 'SK23', 'admin', '2015-06-05 16:57:46', 23),
+	('Material bekas tidak pada tempatnya', 'SK24', 'admin', '2015-06-05 16:57:57', 24),
+	('Pelanggaran terhadap peraturan dasar K3L', 'SK25', 'admin', '2015-06-05 16:58:19', 25),
+	('Licin', 'SK26', 'admin', '2015-06-05 16:58:23', 26),
+	('Label tidak standard', 'SK27', 'admin', '2015-06-05 16:58:31', 27),
+	('Pencemaran Lingkungan', 'SK28', 'admin', '2015-06-05 16:58:40', 28),
+	('DHO meluber ke lantai di bawah kolom Preflash', 'SK29', 'admin', '2015-06-05 16:59:06', 29),
+	('Penataan yang berbahaya', 'SK3', 'admin', '2015-06-05 16:54:12', 3),
+	('Pengaturan parkir yang tidak benar', 'SK30', 'admin', '2015-06-05 16:59:16', 30),
+	('Peralatan tidak berfungsi', 'SK31', 'admin', '2015-06-05 16:59:25', 31),
+	('Sampah tidak tertata dan tidak segera dibuang', 'SK32', 'admin', '2015-06-05 16:59:43', 32),
+	('Terdapat H-Beam dan seng bekas tidak pada tempatnya', 'SK33', 'admin', '2015-06-05 17:00:01', 33),
+	('Sampah dan barang tidak berguna/waste', 'SK34', 'admin', '2015-06-05 17:00:17', 34),
+	('Permukaan berkarat, bisa melukai tangan', 'SK35', 'admin', '2015-06-05 17:00:29', 35),
+	('Bahan atau Prosedur yang berbahaya', 'SK4', 'admin', '2015-06-05 16:54:23', 4),
+	('Penunjukan orang yang tidak tepat', 'SK5', 'admin', '2015-06-05 16:54:40', 5),
+	('Pelindung yang tidak tepat', 'SK6', 'admin', '2015-06-05 16:54:53', 6),
+	('Kebersihan yang tidak memadahi', 'SK7', 'admin', '2015-06-05 16:55:01', 7),
+	('Penerangan yang tidak memadahi', 'SK8', 'admin', '2015-06-05 16:55:13', 8),
+	('Pakaian yang tidak tepat atau tidak memadahi', 'SK9', 'admin', '2015-06-05 16:55:24', 9);
 /*!40000 ALTER TABLE `safety_keadaan` ENABLE KEYS */;
 
 
@@ -555,16 +644,29 @@ CREATE TABLE IF NOT EXISTS `safety_klasifikasi` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_939943962` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.safety_klasifikasi: ~0 rows (approximately)
+-- Dumping data for table she.safety_klasifikasi: ~12 rows (approximately)
 DELETE FROM `safety_klasifikasi`;
 /*!40000 ALTER TABLE `safety_klasifikasi` DISABLE KEYS */;
+INSERT INTO `safety_klasifikasi` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
+	('Masalah Lingkungan', 'KS1', 'admin', '2015-06-05 17:16:47', 1),
+	('5R (Ringkas, Rapi, Resik, Rawat, Rajin)', 'KS10', 'admin', '2015-06-05 17:17:56', 10),
+	('Kesehatan', 'KS11', 'admin', '2015-06-05 17:18:02', 11),
+	('Lingkungan', 'KS12', 'admin', '2015-06-05 17:18:06', 12),
+	('Kerusakan Asset', 'KS2', 'admin', '2015-06-05 17:16:53', 2),
+	('Hampir Celaka', 'KS3', 'admin', '2015-06-05 17:16:58', 3),
+	('P3K', 'KS4', 'admin', '2015-06-05 17:17:02', 4),
+	('Penanganan Medis', 'KS5', 'admin', '2015-06-05 17:17:07', 5),
+	('Kehilangan Hari Kerja', 'KS6', 'admin', '2015-06-05 17:17:14', 6),
+	('Kematian', 'KS7', 'admin', '2015-06-05 17:17:18', 7),
+	('Hampir terjadi keluhan pelanggan internal', 'KS8', 'admin', '2015-06-05 17:17:34', 8),
+	('Hampir terjadi keluhan pelanggan eksternal', 'KS9', 'admin', '2015-06-05 17:17:42', 9);
 /*!40000 ALTER TABLE `safety_klasifikasi` ENABLE KEYS */;
 
 
@@ -758,8 +860,8 @@ CREATE TABLE IF NOT EXISTS `safety_sumberp` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1035944304` (`rowguid`)
@@ -776,7 +878,7 @@ DROP TABLE IF EXISTS `safety_tglpelaporan`;
 CREATE TABLE IF NOT EXISTS `safety_tglpelaporan` (
   `tgl` datetime DEFAULT NULL,
   `nomor` varchar(50) DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_291609669` (`rowguid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -812,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `safety_trans` (
   `dilaporkanoleh` varchar(50) DEFAULT NULL,
   `userupd` varchar(50) DEFAULT NULL,
   `tglupd` timestamp NULL DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   `email` tinyint(1) DEFAULT '1',
   `koreksi` varchar(2000) DEFAULT '-',
   `koreksipic` varchar(50) DEFAULT '-',
@@ -904,16 +1006,25 @@ CREATE TABLE IF NOT EXISTS `secgroup` (
   `fcgroupname` varchar(30) NOT NULL,
   `fcdescription` varchar(80) NOT NULL,
   `userid` varchar(10) DEFAULT NULL,
-  `upddate` datetime DEFAULT NULL,
+  `upddate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ws` varchar(1) DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1977058079` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.secgroup: ~0 rows (approximately)
+-- Dumping data for table she.secgroup: ~8 rows (approximately)
 DELETE FROM `secgroup`;
 /*!40000 ALTER TABLE `secgroup` DISABLE KEYS */;
+INSERT INTO `secgroup` (`fcgroupcode`, `fcgroupname`, `fcdescription`, `userid`, `upddate`, `ws`, `rowguid`) VALUES
+	('APPOFR', 'Application Officer', 'Software Application Administrator', 'admin', '2015-06-05 18:29:49', '-', 1),
+	('HRD', 'HRD STAFF', 'Human Resource Development', 'admin', '2015-06-05 18:30:09', '-', 2),
+	('PPC', 'PPC STAFF', 'Product Planning Control & Distribution', 'admin', '2015-06-05 18:30:36', '-', 3),
+	('SA', 'SA', 'System Analyst', 'admin', '2015-06-05 18:30:47', '-', 4),
+	('PURCH', 'PURCH', 'Purchasing Staff', 'admin', '2015-06-05 18:31:01', '-', 5),
+	('LOG', 'Logistic', 'Logistic', 'admin', '2015-06-05 18:31:09', '-', 6),
+	('Accounting', 'Accounting', 'Accounting', 'admin', '2015-06-05 18:31:18', '-', 7),
+	('MTN', 'Maintenance', 'Maintenance', 'admin', '2015-06-05 18:36:15', '-', 9);
 /*!40000 ALTER TABLE `secgroup` ENABLE KEYS */;
 
 
@@ -929,7 +1040,7 @@ CREATE TABLE IF NOT EXISTS `secuserapp` (
   `upddate` datetime DEFAULT NULL,
   `ws` varchar(1) DEFAULT NULL,
   `fnlevel` varchar(2) DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   `appcso` varchar(10) DEFAULT '-',
   `confirmcso` varchar(10) DEFAULT '-',
   `minremstock` varchar(10) DEFAULT '-',
@@ -942,6 +1053,45 @@ CREATE TABLE IF NOT EXISTS `secuserapp` (
 DELETE FROM `secuserapp`;
 /*!40000 ALTER TABLE `secuserapp` DISABLE KEYS */;
 /*!40000 ALTER TABLE `secuserapp` ENABLE KEYS */;
+
+
+-- Dumping structure for procedure she.SP_INSERT_JENISBAHAYA
+DROP PROCEDURE IF EXISTS `SP_INSERT_JENISBAHAYA`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_JENISBAHAYA`(IN `p_desc` varchar(150), IN `p_userupd` varchar(50))
+begin
+insert into safety_jenisbahaya (description,userupd) values (p_desc,p_userupd);
+select @prefix := value from constval where name= 'sf_jenisbahaya_code_prefix' limit 1;
+select @newid := max(rowguid) from safety_jenisbahaya;
+update safety_jenisbahaya set code = concat(@prefix,@newid) where rowguid = @newid;
+end//
+DELIMITER ;
+
+
+-- Dumping structure for procedure she.SP_INSERT_JENISPEKERJAAN
+DROP PROCEDURE IF EXISTS `SP_INSERT_JENISPEKERJAAN`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_JENISPEKERJAAN`(IN `p_desc` varchar(150), IN `p_userupd` varchar(50))
+begin
+insert into safety_jp (description,userupd) values (p_desc,p_userupd);
+select @prefix := value from constval where name= 'sf_jenispekerjaan_code_prefix' limit 1;
+select @newid := max(rowguid) from safety_jp;
+update safety_jp set code = concat(@prefix,@newid) where rowguid = @newid;
+end//
+DELIMITER ;
+
+
+-- Dumping structure for procedure she.SP_INSERT_KEADAAN
+DROP PROCEDURE IF EXISTS `SP_INSERT_KEADAAN`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_KEADAAN`(IN `p_desc` varchar(150), IN `p_userupd` varchar(50))
+begin
+insert into safety_keadaan (description,userupd) values (p_desc,p_userupd);
+select @prefix := value from constval where name= 'sf_keadaan_code_prefix' limit 1;
+select @newid := max(rowguid) from safety_keadaan;
+update safety_keadaan set code = concat(@prefix,@newid) where rowguid = @newid;
+end//
+DELIMITER ;
 
 
 -- Dumping structure for procedure she.SP_INSERT_SAFETY_ANGGOTABADAN
@@ -979,6 +1129,19 @@ insert into safety_hubungan (description,userupd) values (p_desc,p_userupd);
 select @prefix := value from constval where name= 'sf_hubungan_code_prefix' limit 1;
 select @newid := max(rowguid) from safety_hubungan;
 update safety_hubungan set code = concat(@prefix,@newid) where rowguid = @newid;
+end//
+DELIMITER ;
+
+
+-- Dumping structure for procedure she.SP_INSERT_SAFETY_KLASIFIKASI
+DROP PROCEDURE IF EXISTS `SP_INSERT_SAFETY_KLASIFIKASI`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_SAFETY_KLASIFIKASI`(IN `p_desc` varchar(150), IN `p_userupd` varchar(50))
+begin
+insert into safety_klasifikasi (description,userupd) values (p_desc,p_userupd);
+select @prefix := value from constval where name= 'sf_klasifikasi_code_prefix' limit 1;
+select @newid := max(rowguid) from safety_klasifikasi;
+update safety_klasifikasi set code = concat(@prefix,@newid) where rowguid = @newid;
 end//
 DELIMITER ;
 
@@ -1021,7 +1184,7 @@ DROP TABLE IF EXISTS `tsagama`;
 CREATE TABLE IF NOT EXISTS `tsagama` (
   `fcagama` varchar(1) NOT NULL,
   `fcketerangan` varchar(15) NOT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`fcagama`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_327672215` (`rowguid`)
@@ -1072,7 +1235,7 @@ CREATE TABLE IF NOT EXISTS `tsdepartment` (
   `fcpic` varchar(50) DEFAULT NULL,
   `fcuserid` varchar(10) DEFAULT NULL,
   `fctglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`fcdeptid`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_411148510` (`rowguid`)
@@ -1107,7 +1270,7 @@ CREATE TABLE IF NOT EXISTS `tsemployee` (
   `upddate` timestamp NULL DEFAULT NULL,
   `fclabelname` varchar(50) DEFAULT '-',
   `fclabeldept` varchar(30) DEFAULT '-',
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(80) DEFAULT '-',
   `fcresign` varchar(10) DEFAULT '-',
   `status_safety` tinyint(1) DEFAULT '0',
@@ -1152,7 +1315,7 @@ DROP TABLE IF EXISTS `tssex`;
 CREATE TABLE IF NOT EXISTS `tssex` (
   `fcsex` varchar(1) NOT NULL,
   `fcketerangan` varchar(10) NOT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_343672272` (`rowguid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1173,18 +1336,23 @@ CREATE TABLE IF NOT EXISTS `tsvendor` (
   `fcfax` varchar(30) DEFAULT NULL,
   `fcemail` varchar(30) DEFAULT NULL,
   `fcuserid` varchar(10) DEFAULT NULL,
-  `fctanggal` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `fctanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   `fcvendorid` varchar(10) NOT NULL,
   `fcaddress` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`fcvendorid`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1428200138` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tsvendor: ~0 rows (approximately)
 DELETE FROM `tsvendor`;
 /*!40000 ALTER TABLE `tsvendor` DISABLE KEYS */;
+INSERT INTO `tsvendor` (`fcname`, `fcdesc`, `fccontperson`, `fcphone`, `fcfax`, `fcemail`, `fcuserid`, `fctanggal`, `rowguid`, `fcvendorid`, `fcaddress`) VALUES
+	('ABADI ADIMULIA, PT', '-', 'ANTON', '8439456', '8439486', '-', 'admin', '2015-06-05 19:19:36', 1, 'ABADI AM', 'JL. RUNGKUT INDUSTRI I/14'),
+	('ABADI CEMERLANG', '-', '-', '5477043', '5477043', '-', 'admin', '2015-06-05 19:21:37', 2, 'ABADI C', 'SURABAYA\0\0\0\0\0\0\0\0\0\0'),
+	('ABDIBANGUN BUANA, PT', '-', 'MADE', '8471334', '8471342', '-', 'admin', '2015-06-05 19:22:29', 3, 'ABB', 'JL. RUNGKUT INDUSTRI III/27 SURABAYA'),
+	('ACER INDONESIA, PT', '-', '-', '5356957', '5356956', '-', 'admin', '2015-06-05 19:23:11', 4, 'ACER', 'SURABAYA');
 /*!40000 ALTER TABLE `tsvendor` ENABLE KEYS */;
 
 
