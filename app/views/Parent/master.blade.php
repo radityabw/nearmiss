@@ -223,16 +223,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- Optionally, you can add icons to the links -->
                         @foreach($menus as $mn)
                         @if(count($mn->child)>0)
-                        <li class="treeview">
+                        <li class="treeview {{(Request::is($mn->if_url)?'active':'')}}">
                             <a href="home"><i class='fa {{$mn->icon}}'></i> <span>{{$mn->nama}}</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 @foreach($mn->child as $ch)
-                                <li><a href="{{$ch->url}}">{{$ch->nama}}</a></li>
+                                <li class="{{(Request::is($ch->if_url)?'active':'')}}" ><a href="{{$ch->url}}">{{$ch->nama}}</a></li>
                                 @endforeach
                             </ul>
                         </li>
                         @else
-                        <li class="active"><a href="{{$mn->url}}"><i class='fa {{$mn->icon}}'></i> <span>{{$mn->nama}}</span></a></li>
+                        <li class="{{(Request::is($mn->if_url)?'active':'')}}"><a href="{{$mn->url}}"><i class='fa {{$mn->icon}}'></i> <span>{{$mn->nama}}</span></a></li>
                         @endif
                         
                         @endforeach

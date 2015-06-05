@@ -522,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `safety_jp` (
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_907943848` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Jenis Pekerjaan';
 
 -- Dumping data for table she.safety_jp: ~0 rows (approximately)
 DELETE FROM `safety_jp`;
