@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `application_events` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.application_events: ~0 rows (approximately)
+DELETE FROM `application_events`;
 /*!40000 ALTER TABLE `application_events` DISABLE KEYS */;
 /*!40000 ALTER TABLE `application_events` ENABLE KEYS */;
 
@@ -67,12 +68,16 @@ CREATE TABLE IF NOT EXISTS `constval` (
   `name` varchar(250) DEFAULT NULL,
   `value` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.constval: ~1 rows (approximately)
+-- Dumping data for table she.constval: ~4 rows (approximately)
+DELETE FROM `constval`;
 /*!40000 ALTER TABLE `constval` DISABLE KEYS */;
 INSERT INTO `constval` (`id`, `name`, `value`) VALUES
-	(1, 'sf_anggotabadan_code_prefix', 'AB');
+	(1, 'sf_anggotabadan_code_prefix', 'AB'),
+	(2, 'show_number_datatable', '10'),
+	(3, 'sf_cedera_code_prefix', 'CE'),
+	(4, 'sf_hubungan_code_prefix', 'SH');
 /*!40000 ALTER TABLE `constval` ENABLE KEYS */;
 
 
@@ -85,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `detailrmap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.detailrmap: ~0 rows (approximately)
+DELETE FROM `detailrmap`;
 /*!40000 ALTER TABLE `detailrmap` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detailrmap` ENABLE KEYS */;
 
@@ -103,8 +109,54 @@ CREATE TABLE IF NOT EXISTS `dtproperties` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.dtproperties: ~0 rows (approximately)
+DELETE FROM `dtproperties`;
 /*!40000 ALTER TABLE `dtproperties` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dtproperties` ENABLE KEYS */;
+
+
+-- Dumping structure for table she.menu
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) DEFAULT NULL,
+  `url` varchar(250) DEFAULT NULL,
+  `if_url` varchar(250) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `publish` enum('Y','N') DEFAULT 'Y',
+  `order` int(11) DEFAULT NULL,
+  `icon` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table she.menu: ~24 rows (approximately)
+DELETE FROM `menu`;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` (`id`, `nama`, `url`, `if_url`, `parent_id`, `publish`, `order`, `icon`) VALUES
+	(1, 'Home', 'home', 'home', 0, 'Y', 1, 'fa-home'),
+	(2, 'Master', '#', 'master*', 0, 'Y', 2, 'fa-th-large'),
+	(3, 'Anggota Badan', 'master/safetyanggotabadan', 'master/safetyanggotabadan*', 2, 'Y', 1, NULL),
+	(4, 'Cedera', 'master/safetycedera', NULL, 2, 'Y', 2, NULL),
+	(5, 'Hub dengan plant', 'master/safetyhubungan', NULL, 2, 'Y', 3, NULL),
+	(6, 'Jenis Pekerjaan', NULL, NULL, 2, 'Y', 4, NULL),
+	(7, 'Jenis Bahaya', NULL, NULL, 2, 'Y', 5, NULL),
+	(8, 'Keadaan', NULL, NULL, 2, 'Y', 6, NULL),
+	(9, 'Pegawai', NULL, NULL, 2, 'Y', 7, NULL),
+	(10, 'Departemen', NULL, NULL, 2, 'Y', 8, NULL),
+	(11, 'Grup', NULL, NULL, 2, 'Y', 9, NULL),
+	(12, 'Vendro', NULL, NULL, 2, 'Y', 10, NULL),
+	(13, 'Work Request', NULL, NULL, 2, 'Y', 11, NULL),
+	(14, 'Sumber Penyebab', NULL, NULL, 2, 'Y', 12, NULL),
+	(15, 'Resepsionis', NULL, NULL, 2, 'Y', 13, NULL),
+	(16, 'Transaksi', NULL, NULL, 0, 'Y', 3, 'fa-download'),
+	(17, 'Safety', NULL, NULL, 16, 'Y', 1, NULL),
+	(18, 'Near Miss', NULL, NULL, 16, 'Y', 2, NULL),
+	(19, 'Pasal', NULL, NULL, 16, 'Y', 3, NULL),
+	(20, 'Work Permit', NULL, NULL, 16, 'Y', 4, NULL),
+	(21, 'Aturan Keselamatan', NULL, NULL, 16, 'Y', 5, NULL),
+	(22, 'Monitoring', NULL, NULL, 0, 'Y', 4, 'fa-signal'),
+	(23, 'Near Miss', NULL, NULL, 22, 'Y', 1, NULL),
+	(24, 'Grafik Near Miss', NULL, NULL, 22, 'Y', 2, NULL);
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 
 -- Dumping structure for table she.migrations
@@ -115,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table she.migrations: ~3 rows (approximately)
+DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`migration`, `batch`) VALUES
 	('2015_06_04_051925_entrust_setup_tables', 1),
@@ -136,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table she.permissions: ~0 rows (approximately)
+DELETE FROM `permissions`;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 
@@ -149,11 +203,12 @@ CREATE TABLE IF NOT EXISTS `permission_role` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   KEY `permission_role_permission_id_index` (`permission_id`),
   KEY `permission_role_role_id_index` (`role_id`),
-  CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+  CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table she.permission_role: ~0 rows (approximately)
+DELETE FROM `permission_role`;
 /*!40000 ALTER TABLE `permission_role` DISABLE KEYS */;
 /*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
 
@@ -174,6 +229,7 @@ CREATE TABLE IF NOT EXISTS `receptionist_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.receptionist_detail: ~0 rows (approximately)
+DELETE FROM `receptionist_detail`;
 /*!40000 ALTER TABLE `receptionist_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `receptionist_detail` ENABLE KEYS */;
 
@@ -192,6 +248,7 @@ CREATE TABLE IF NOT EXISTS `receptionist_header` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.receptionist_header: ~0 rows (approximately)
+DELETE FROM `receptionist_header`;
 /*!40000 ALTER TABLE `receptionist_header` DISABLE KEYS */;
 /*!40000 ALTER TABLE `receptionist_header` ENABLE KEYS */;
 
@@ -206,6 +263,7 @@ CREATE TABLE IF NOT EXISTS `rmap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.rmap: ~0 rows (approximately)
+DELETE FROM `rmap`;
 /*!40000 ALTER TABLE `rmap` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rmap` ENABLE KEYS */;
 
@@ -224,6 +282,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table she.roles: ~1 rows (approximately)
+DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id`, `name`, `description`, `level`, `created_at`, `updated_at`) VALUES
 	(1, 'Super Admin', NULL, 10, '2015-06-04 07:49:16', '2015-06-04 07:49:16');
@@ -244,6 +303,7 @@ CREATE TABLE IF NOT EXISTS `role_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table she.role_user: ~1 rows (approximately)
+DELETE FROM `role_user`;
 /*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
 INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, '2015-06-04 07:49:16', '2015-06-04 07:49:16');
@@ -258,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `safety_access` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_access: ~0 rows (approximately)
+DELETE FROM `safety_access`;
 /*!40000 ALTER TABLE `safety_access` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_access` ENABLE KEYS */;
 
@@ -270,6 +331,7 @@ CREATE TABLE IF NOT EXISTS `safety_account_email` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_account_email: ~0 rows (approximately)
+DELETE FROM `safety_account_email`;
 /*!40000 ALTER TABLE `safety_account_email` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_account_email` ENABLE KEYS */;
 
@@ -285,13 +347,41 @@ CREATE TABLE IF NOT EXISTS `safety_anggotabadan` (
   PRIMARY KEY (`rowguid`),
   UNIQUE KEY `code_unique` (`code`),
   KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.safety_anggotabadan: ~1 rows (approximately)
+-- Dumping data for table she.safety_anggotabadan: ~29 rows (approximately)
+DELETE FROM `safety_anggotabadan`;
 /*!40000 ALTER TABLE `safety_anggotabadan` DISABLE KEYS */;
 INSERT INTO `safety_anggotabadan` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
-	('Kepala', 'AB1', 'radit', '2015-06-04 15:48:35', 1),
-	('Pergelangan Tangan', 'AB2', 'admin', '2015-06-04 16:14:02', 2);
+	('Pergelangan Tangan', 'AB3', 'admin', '2015-06-05 07:56:11', 3),
+	('Tidak Cedera', 'AB4', 'admin', '2015-06-05 07:56:41', 4),
+	('Lengan', 'AB5', 'admin', '2015-06-05 07:56:48', 5),
+	('Punggung', 'AB6', 'admin', '2015-06-05 07:56:54', 6),
+	('Telinga', 'AB7', 'admin', '2015-06-05 07:57:20', 7),
+	('Siku', 'AB8', 'admin', '2015-06-05 07:57:23', 8),
+	('Mata', 'AB9', 'admin', '2015-06-05 07:57:29', 9),
+	('Muka', 'AB10', 'admin', '2015-06-05 07:57:31', 10),
+	('Jari', 'AB11', 'admin', '2015-06-05 07:57:34', 11),
+	('Kaki', 'AB12', 'admin', '2015-06-05 07:57:41', 12),
+	('Tangan', 'AB13', 'admin', '2015-06-05 07:57:44', 13),
+	('Kepala', 'AB14', 'admin', '2015-06-05 07:57:47', 14),
+	('Organ Bagian Dalam', 'AB15', 'admin', '2015-06-05 07:57:58', 15),
+	('Lutut', 'AB16', 'admin', '2015-06-05 07:58:01', 16),
+	('Tungkai Bawah (Kaki)', 'AB17', 'admin', '2015-06-05 07:58:41', 17),
+	('Mulut', 'AB18', 'admin', '2015-06-05 07:58:47', 18),
+	('Leher', 'AB19', 'admin', '2015-06-05 07:58:50', 19),
+	('Hidung', 'AB20', 'admin', '2015-06-05 07:58:54', 20),
+	('Dagu', 'AB21', 'admin', '2015-06-05 07:59:06', 21),
+	('Gigi', 'AB22', 'admin', '2015-06-05 07:59:08', 22),
+	('Paha', 'AB23', 'admin', '2015-06-05 07:59:10', 23),
+	('Batang Tubuh', 'AB24', 'admin', '2015-06-05 07:59:17', 24),
+	('Ibu Jari', 'AB25', 'admin', '2015-06-05 07:59:20', 25),
+	('Pergelangan', 'AB26', 'admin', '2015-06-05 07:59:26', 26),
+	('Lain-lain, silahkan identifikasi di uraian', 'AB27', 'admin', '2015-06-05 07:59:46', 27),
+	('Mata Kaki', 'AB28', 'admin', '2015-06-05 07:59:53', 28),
+	('Tidak Diketahui', 'AB29', 'admin', '2015-06-05 07:59:57', 29),
+	('Kerusakan Organ Dalam', 'AB30', 'admin', '2015-06-05 08:00:06', 30),
+	('Otot Meregang dan Terkilir', 'AB31', 'admin', '2015-06-05 08:00:14', 31);
 /*!40000 ALTER TABLE `safety_anggotabadan` ENABLE KEYS */;
 
 
@@ -301,17 +391,49 @@ CREATE TABLE IF NOT EXISTS `safety_cedera` (
   `description` varchar(150) DEFAULT NULL,
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
-  `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `tglupd` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1274565166` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.safety_cedera: ~1 rows (approximately)
+-- Dumping data for table she.safety_cedera: ~32 rows (approximately)
+DELETE FROM `safety_cedera`;
 /*!40000 ALTER TABLE `safety_cedera` DISABLE KEYS */;
 INSERT INTO `safety_cedera` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
-	('patah kaki', '4', NULL, NULL, '');
+	('Tidak Cedera', 'CE1', 'admin', '2015-06-05 09:45:54', 1),
+	('Tergilas', 'CE10', 'admin', '2015-06-05 09:49:46', 10),
+	('Ketegangan yang menumpuk', 'CE11', 'admin', '2015-06-05 09:49:56', 11),
+	('Terpotong atau tergores', 'CE12', 'admin', '2015-06-05 09:50:05', 12),
+	('Tuli', 'CE13', 'admin', '2015-06-05 09:50:14', 13),
+	('Iritasi Kulit', 'CE14', 'admin', '2015-06-05 09:50:17', 14),
+	('Sendi Terlepas', 'CE15', 'admin', '2015-06-05 09:50:24', 15),
+	('Kejutan Listrik', 'CE16', 'admin', '2015-06-05 09:50:30', 16),
+	('Mata', 'CE17', 'admin', '2015-06-05 09:50:32', 17),
+	('Bagian tubuh lainnya', 'CE18', 'admin', '2015-06-05 09:50:44', 18),
+	('Retak Tulang', 'CE19', 'admin', '2015-06-05 09:50:49', 19),
+	('Lecet/Barut-barut', 'CE2', 'admin', '2015-06-05 09:46:10', 2),
+	('Lumpuh', 'CE20', 'admin', '2015-06-05 09:50:55', 20),
+	('Gangguan Pendengaran', 'CE21', 'admin', '2015-06-05 09:51:01', 21),
+	('Stress/Stroke', 'CE22', 'admin', '2015-06-05 09:51:07', 22),
+	('Hernia', 'CE23', 'admin', '2015-06-05 09:51:09', 23),
+	('Melepuh', 'CE24', 'admin', '2015-06-05 09:51:13', 24),
+	('Lain-lain, silahkan identifikasi di uraian', 'CE25', 'admin', '2015-06-05 09:51:21', 25),
+	('Tertusuk', 'CE26', 'admin', '2015-06-05 09:51:28', 26),
+	('Radiasi', 'CE27', 'admin', '2015-06-05 09:51:30', 27),
+	('Kerusakan Organ Dalam', 'CE28', 'admin', '2015-06-05 09:51:37', 28),
+	('Otot Meregang dan Terkilir', 'CE29', 'admin', '2015-06-05 09:51:46', 29),
+	('Amputasi', 'CE3', 'admin', '2015-06-05 09:46:18', 3),
+	('Keracunan asap/keracunan lainnya', 'CE30', 'admin', '2015-06-05 09:51:56', 30),
+	('Tidak Diketahui', 'CE31', 'admin', '2015-06-05 09:52:03', 31),
+	('Hampir Cedera', 'CE33', 'admin', '2015-06-05 09:53:11', 33),
+	('Tidak sadar karena kekurangan O2', 'CE4', 'admin', '2015-06-05 09:46:33', 4),
+	('Bengkak', 'CE5', 'admin', '2015-06-05 09:46:40', 5),
+	('Terbakar bahan kimia', 'CE6', 'admin', '2015-06-05 09:46:45', 6),
+	('Terbakar karena arus listrik', 'CE7', 'admin', '2015-06-05 09:49:25', 7),
+	('Terbakar karena panas', 'CE8', 'admin', '2015-06-05 09:49:32', 8),
+	('Terkejut dan hilang kesadaran', 'CE9', 'admin', '2015-06-05 09:49:40', 9);
 /*!40000 ALTER TABLE `safety_cedera` ENABLE KEYS */;
 
 
@@ -326,6 +448,7 @@ CREATE TABLE IF NOT EXISTS `safety_column_view` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_column_view: ~0 rows (approximately)
+DELETE FROM `safety_column_view`;
 /*!40000 ALTER TABLE `safety_column_view` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_column_view` ENABLE KEYS */;
 
@@ -339,6 +462,7 @@ CREATE TABLE IF NOT EXISTS `safety_detail_wr_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_detail_wr_master: ~0 rows (approximately)
+DELETE FROM `safety_detail_wr_master`;
 /*!40000 ALTER TABLE `safety_detail_wr_master` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_detail_wr_master` ENABLE KEYS */;
 
@@ -350,14 +474,21 @@ CREATE TABLE IF NOT EXISTS `safety_hubungan` (
   `code` varchar(50) NOT NULL,
   `userupd` varchar(50) DEFAULT NULL,
   `tglupd` datetime DEFAULT NULL,
-  `rowguid` varchar(64) NOT NULL,
+  `rowguid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1067944418` (`rowguid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.safety_hubungan: ~0 rows (approximately)
+-- Dumping data for table she.safety_hubungan: ~5 rows (approximately)
+DELETE FROM `safety_hubungan`;
 /*!40000 ALTER TABLE `safety_hubungan` DISABLE KEYS */;
+INSERT INTO `safety_hubungan` (`description`, `code`, `userupd`, `tglupd`, `rowguid`) VALUES
+	('Sangat Terkait', 'SH1', 'admin', NULL, 1),
+	('Terkait', 'SH2', 'admin', NULL, 2),
+	('Mungkin Terkait', 'SH3', 'admin', NULL, 3),
+	('Kecil kemungkinannya terkait', 'SH4', 'admin', NULL, 4),
+	('Tidak Terkait', 'SH5', 'admin', NULL, 5);
 /*!40000 ALTER TABLE `safety_hubungan` ENABLE KEYS */;
 
 
@@ -375,6 +506,7 @@ CREATE TABLE IF NOT EXISTS `safety_jenisbahaya` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_jenisbahaya: ~0 rows (approximately)
+DELETE FROM `safety_jenisbahaya`;
 /*!40000 ALTER TABLE `safety_jenisbahaya` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_jenisbahaya` ENABLE KEYS */;
 
@@ -393,6 +525,7 @@ CREATE TABLE IF NOT EXISTS `safety_jp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_jp: ~0 rows (approximately)
+DELETE FROM `safety_jp`;
 /*!40000 ALTER TABLE `safety_jp` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_jp` ENABLE KEYS */;
 
@@ -411,6 +544,7 @@ CREATE TABLE IF NOT EXISTS `safety_keadaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_keadaan: ~0 rows (approximately)
+DELETE FROM `safety_keadaan`;
 /*!40000 ALTER TABLE `safety_keadaan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_keadaan` ENABLE KEYS */;
 
@@ -429,6 +563,7 @@ CREATE TABLE IF NOT EXISTS `safety_klasifikasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_klasifikasi: ~0 rows (approximately)
+DELETE FROM `safety_klasifikasi`;
 /*!40000 ALTER TABLE `safety_klasifikasi` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_klasifikasi` ENABLE KEYS */;
 
@@ -445,6 +580,7 @@ CREATE TABLE IF NOT EXISTS `safety_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_menu: ~0 rows (approximately)
+DELETE FROM `safety_menu`;
 /*!40000 ALTER TABLE `safety_menu` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_menu` ENABLE KEYS */;
 
@@ -457,6 +593,7 @@ CREATE TABLE IF NOT EXISTS `safety_menu_gambar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_menu_gambar: ~0 rows (approximately)
+DELETE FROM `safety_menu_gambar`;
 /*!40000 ALTER TABLE `safety_menu_gambar` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_menu_gambar` ENABLE KEYS */;
 
@@ -470,6 +607,7 @@ CREATE TABLE IF NOT EXISTS `safety_pasal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_pasal: ~0 rows (approximately)
+DELETE FROM `safety_pasal`;
 /*!40000 ALTER TABLE `safety_pasal` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_pasal` ENABLE KEYS */;
 
@@ -485,6 +623,7 @@ CREATE TABLE IF NOT EXISTS `safety_pasal_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_pasal_detail: ~0 rows (approximately)
+DELETE FROM `safety_pasal_detail`;
 /*!40000 ALTER TABLE `safety_pasal_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_pasal_detail` ENABLE KEYS */;
 
@@ -500,6 +639,7 @@ CREATE TABLE IF NOT EXISTS `safety_pasal_header` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_pasal_header: ~0 rows (approximately)
+DELETE FROM `safety_pasal_header`;
 /*!40000 ALTER TABLE `safety_pasal_header` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_pasal_header` ENABLE KEYS */;
 
@@ -516,6 +656,7 @@ CREATE TABLE IF NOT EXISTS `safety_pasal_sub_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_pasal_sub_detail: ~0 rows (approximately)
+DELETE FROM `safety_pasal_sub_detail`;
 /*!40000 ALTER TABLE `safety_pasal_sub_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_pasal_sub_detail` ENABLE KEYS */;
 
@@ -557,6 +698,7 @@ CREATE TABLE IF NOT EXISTS `safety_permit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_permit: ~0 rows (approximately)
+DELETE FROM `safety_permit`;
 /*!40000 ALTER TABLE `safety_permit` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_permit` ENABLE KEYS */;
 
@@ -570,6 +712,7 @@ CREATE TABLE IF NOT EXISTS `safety_permit_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_permit_detail: ~0 rows (approximately)
+DELETE FROM `safety_permit_detail`;
 /*!40000 ALTER TABLE `safety_permit_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_permit_detail` ENABLE KEYS */;
 
@@ -587,6 +730,7 @@ CREATE TABLE IF NOT EXISTS `safety_permit_sub_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_permit_sub_detail: ~0 rows (approximately)
+DELETE FROM `safety_permit_sub_detail`;
 /*!40000 ALTER TABLE `safety_permit_sub_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_permit_sub_detail` ENABLE KEYS */;
 
@@ -603,6 +747,7 @@ CREATE TABLE IF NOT EXISTS `safety_sub_detail_wr_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_sub_detail_wr_master: ~0 rows (approximately)
+DELETE FROM `safety_sub_detail_wr_master`;
 /*!40000 ALTER TABLE `safety_sub_detail_wr_master` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_sub_detail_wr_master` ENABLE KEYS */;
 
@@ -621,6 +766,7 @@ CREATE TABLE IF NOT EXISTS `safety_sumberp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_sumberp: ~0 rows (approximately)
+DELETE FROM `safety_sumberp`;
 /*!40000 ALTER TABLE `safety_sumberp` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_sumberp` ENABLE KEYS */;
 
@@ -636,6 +782,7 @@ CREATE TABLE IF NOT EXISTS `safety_tglpelaporan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_tglpelaporan: ~0 rows (approximately)
+DELETE FROM `safety_tglpelaporan`;
 /*!40000 ALTER TABLE `safety_tglpelaporan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_tglpelaporan` ENABLE KEYS */;
 
@@ -681,6 +828,7 @@ CREATE TABLE IF NOT EXISTS `safety_trans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_trans: ~0 rows (approximately)
+DELETE FROM `safety_trans`;
 /*!40000 ALTER TABLE `safety_trans` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_trans` ENABLE KEYS */;
 
@@ -712,6 +860,7 @@ CREATE TABLE IF NOT EXISTS `safety_trans_cpar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_trans_cpar: ~0 rows (approximately)
+DELETE FROM `safety_trans_cpar`;
 /*!40000 ALTER TABLE `safety_trans_cpar` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_trans_cpar` ENABLE KEYS */;
 
@@ -728,6 +877,7 @@ CREATE TABLE IF NOT EXISTS `safety_trans_cpar_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_trans_cpar_detail: ~0 rows (approximately)
+DELETE FROM `safety_trans_cpar_detail`;
 /*!40000 ALTER TABLE `safety_trans_cpar_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_trans_cpar_detail` ENABLE KEYS */;
 
@@ -742,6 +892,7 @@ CREATE TABLE IF NOT EXISTS `safety_trans_gambar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.safety_trans_gambar: ~0 rows (approximately)
+DELETE FROM `safety_trans_gambar`;
 /*!40000 ALTER TABLE `safety_trans_gambar` DISABLE KEYS */;
 /*!40000 ALTER TABLE `safety_trans_gambar` ENABLE KEYS */;
 
@@ -761,6 +912,7 @@ CREATE TABLE IF NOT EXISTS `secgroup` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.secgroup: ~0 rows (approximately)
+DELETE FROM `secgroup`;
 /*!40000 ALTER TABLE `secgroup` DISABLE KEYS */;
 /*!40000 ALTER TABLE `secgroup` ENABLE KEYS */;
 
@@ -787,6 +939,7 @@ CREATE TABLE IF NOT EXISTS `secuserapp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.secuserapp: ~0 rows (approximately)
+DELETE FROM `secuserapp`;
 /*!40000 ALTER TABLE `secuserapp` DISABLE KEYS */;
 /*!40000 ALTER TABLE `secuserapp` ENABLE KEYS */;
 
@@ -804,6 +957,32 @@ end//
 DELIMITER ;
 
 
+-- Dumping structure for procedure she.SP_INSERT_SAFETY_CEDERA
+DROP PROCEDURE IF EXISTS `SP_INSERT_SAFETY_CEDERA`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_SAFETY_CEDERA`(IN `p_desc` varchar(150), IN `p_userupd` varchar(50))
+begin
+insert into safety_cedera (description,userupd) values (p_desc,p_userupd);
+select @prefix := value from constval where name= 'sf_cedera_code_prefix' limit 1;
+select @newid := max(rowguid) from safety_cedera;
+update safety_cedera set code = concat(@prefix,@newid) where rowguid = @newid;
+end//
+DELIMITER ;
+
+
+-- Dumping structure for procedure she.SP_INSERT_SAFETY_HUBUNGAN
+DROP PROCEDURE IF EXISTS `SP_INSERT_SAFETY_HUBUNGAN`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_INSERT_SAFETY_HUBUNGAN`(IN `p_desc` varchar(150), IN `p_userupd` varchar(50))
+begin
+insert into safety_hubungan (description,userupd) values (p_desc,p_userupd);
+select @prefix := value from constval where name= 'sf_hubungan_code_prefix' limit 1;
+select @newid := max(rowguid) from safety_hubungan;
+update safety_hubungan set code = concat(@prefix,@newid) where rowguid = @newid;
+end//
+DELIMITER ;
+
+
 -- Dumping structure for table she.subdetailrmap
 DROP TABLE IF EXISTS `subdetailrmap`;
 CREATE TABLE IF NOT EXISTS `subdetailrmap` (
@@ -814,6 +993,7 @@ CREATE TABLE IF NOT EXISTS `subdetailrmap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.subdetailrmap: ~0 rows (approximately)
+DELETE FROM `subdetailrmap`;
 /*!40000 ALTER TABLE `subdetailrmap` DISABLE KEYS */;
 /*!40000 ALTER TABLE `subdetailrmap` ENABLE KEYS */;
 
@@ -831,6 +1011,7 @@ CREATE TABLE IF NOT EXISTS `sysdiagrams` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.sysdiagrams: ~0 rows (approximately)
+DELETE FROM `sysdiagrams`;
 /*!40000 ALTER TABLE `sysdiagrams` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sysdiagrams` ENABLE KEYS */;
 
@@ -847,6 +1028,7 @@ CREATE TABLE IF NOT EXISTS `tsagama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tsagama: ~0 rows (approximately)
+DELETE FROM `tsagama`;
 /*!40000 ALTER TABLE `tsagama` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tsagama` ENABLE KEYS */;
 
@@ -876,6 +1058,7 @@ CREATE TABLE IF NOT EXISTS `tscompro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tscompro: ~0 rows (approximately)
+DELETE FROM `tscompro`;
 /*!40000 ALTER TABLE `tscompro` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tscompro` ENABLE KEYS */;
 
@@ -896,6 +1079,7 @@ CREATE TABLE IF NOT EXISTS `tsdepartment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tsdepartment: ~0 rows (approximately)
+DELETE FROM `tsdepartment`;
 /*!40000 ALTER TABLE `tsdepartment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tsdepartment` ENABLE KEYS */;
 
@@ -935,6 +1119,7 @@ CREATE TABLE IF NOT EXISTS `tsemployee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tsemployee: ~0 rows (approximately)
+DELETE FROM `tsemployee`;
 /*!40000 ALTER TABLE `tsemployee` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tsemployee` ENABLE KEYS */;
 
@@ -957,6 +1142,7 @@ CREATE TABLE IF NOT EXISTS `tssetting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tssetting: ~0 rows (approximately)
+DELETE FROM `tssetting`;
 /*!40000 ALTER TABLE `tssetting` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tssetting` ENABLE KEYS */;
 
@@ -972,6 +1158,7 @@ CREATE TABLE IF NOT EXISTS `tssex` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tssex: ~0 rows (approximately)
+DELETE FROM `tssex`;
 /*!40000 ALTER TABLE `tssex` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tssex` ENABLE KEYS */;
 
@@ -996,6 +1183,7 @@ CREATE TABLE IF NOT EXISTS `tsvendor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table she.tsvendor: ~0 rows (approximately)
+DELETE FROM `tsvendor`;
 /*!40000 ALTER TABLE `tsvendor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tsvendor` ENABLE KEYS */;
 
@@ -1023,6 +1211,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table she.users: ~1 rows (approximately)
+DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `password`, `salt`, `email`, `remember_token`, `verified`, `disabled`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'admin', '$2a$08$Afz2r1HFDMA8cSoo6GwkCOlAQSHGMMNdO31aDenx10iUfKiANITHO', '8ba5d18b4cd2b70626a912a775f94658', 'admin@example.com', NULL, 1, 0, '2015-06-04 07:49:16', '2015-06-04 07:49:16', NULL);
