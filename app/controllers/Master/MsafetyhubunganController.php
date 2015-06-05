@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Controllers\Master;
 
-use App\Http\Controllers\Controller;
-
-class MsafetyhubunganController extends Controller {
+class MsafetyhubunganController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('safety_hubungan')->get();
+        $data = \DB::table('safety_hubungan')->orderBy('tglupd', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_hubungan/index', [
-            'data' => $data
+                    'data' => $data
         ]);
     }
 
@@ -17,32 +15,42 @@ class MsafetyhubunganController extends Controller {
         return \View::make('Master/M_safety_hubungan/new');
     }
 
-//
-//    function postNew() {
-//        \DB::table('safety_cedera')->insert(array(
-//        'code' => 4,
-//        'description' => \Input::get('desc')
-//        ));
-//        
-//        return \Redirect::to('master/safetycedera');
-//    }
+    function postNew() {
+        \DB::select("CALL SP_INSERT_SAFETY_HUBUNGAN('" . \Input::get('desc') . "', '" . \Session::get('onusername') . "')");
+
+        return \Redirect::to('master/safetyhubungan');
+    }
 
     function getEdit($id) {
-        $safetyhubungan = \DB::table('safety_hubungan')->where('Code', $id)->first();
-
+        $data = \DB::table('safety_hubungan')->where('code', $id)->first();
         return \View::make('Master/M_safety_hubungan/edit', array(
-            'safetyhubungan' => $safetyhubungan
+                    'data' => $data
         ));
     }
 
     function postEdit() {
-
-        \DB::table('safety_hubungan')->where('Code', \Input::get('safetyhubungan_code'))
+        \DB::table('safety_hubungan')
+                ->where('code', \Input::get('code'))
                 ->update(array(
-                    'Description' => \Input::get('desc')
+                    'description' => \Input::get('desc')
         ));
 
-        return \Redirect::to('master/safetyhubungan');
+        return \Redirect::back();
+    }
+
+    function getDelete($id) {
+        \DB::table('safety_hubungan')->where('code', $id)->delete();
+        return \Redirect::back();
+    }
+
+    function postFilter() {
+        $data = \DB::table('safety_hubungan')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        return \View::make('Master/M_safety_hubungan/index', [
+                    'data' => $data,
+                    'isfilter' => true,
+                    'filter_col' => \Input::get('column'),
+                    'filter_val' => \Input::get('value')
+        ]);
     }
 
 }

@@ -22,6 +22,8 @@ Route::controller('login', 'App\Controllers\LoginController');
 
 Route::group(array('prefix' => 'master'), function() {
     Route::controller('safetyanggotabadan', 'App\Controllers\Master\MsafetyanggotabadanController');
+    Route::controller('safetycedera', 'App\Controllers\Master\MsafetycederaController');
+    Route::controller('safetyhubungan', 'App\Controllers\Master\MsafetyhubunganController');
 });
 
 

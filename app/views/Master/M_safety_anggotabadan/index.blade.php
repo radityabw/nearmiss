@@ -22,31 +22,31 @@
             <div class="col-md-12">
                 <div class="box" >
                     <div class="box-header" >
-                        <h3 class="box-title">Filter</h3>
+                        <h3 class="box-title">Filter {{(isset($isfilter)?'{<i><b>'.$filter_col.':'.$filter_val.'</b></i>}':'')}}</h3>
                         <div class='box-tools'>
                             <button id="btnFilter" class="btn btn-box-tool" data-widget='collapse'><i class='fa fa-minus'></i></button>
                         </div>
                     </div>
                     <div class="box-body" >
-                        <form role="form" id="formFilter">
+                        <form role="form" id="formFilter" action="master/safetyanggotabadan/filter" method="POST">
                             <div class="box-body no-padding">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Column</label>
-                                    <select name="kolom" class="form-control">
-                                        <option value="code" >Kode</option>
-                                        <option value="description" >Deskripsi</option>
-                                        <option value="userupd" >User Pembuat</option>
-                                        <option value="tglupd" >Tanggal Pembuatan</option>
-                                    </select>
+
+                                    <?php $colarr = array('code' => 'Kode', 'description' => 'Deskripsi', 'userupd' => 'User Pembuat', 'tglupd' => 'Tanggal Pembuatan'); ?>
+                                    {{Form::select('column',$colarr,(isset($isfilter)?$filter_col:null),array('class'=>'form-control'))}}
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Value</label>
-                                    <input type="text" class="form-control" name="value">
+                                    <input value="{{isset($isfilter)?$filter_val:''}}" type="text" class="form-control" name="value" required>
                                 </div>
                             </div><!-- /.box-body -->
 
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                @if(isset($isfilter))
+                                <a class="btn btn-danger" href="master/safetyanggotabadan" >Clear Filter</a>
+                                @endif
                             </div>
                         </form>
                     </div>
@@ -69,7 +69,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $rownum = ($data->getCurrentPage()-1)*Helpers::constval('show_number_datatable')+1; ?>
+                                <?php $rownum = ($data->getCurrentPage() - 1) * Helpers::constval('show_number_datatable') + 1; ?>
                                 @foreach($data as $dt)
                                 <tr>
                                     <td class="text-right">{{$rownum++}}.</td>
@@ -84,7 +84,7 @@
                                 </tr>
                                 @endforeach
                         </table>
-                        
+
                         {{$data->links()}}
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->  
@@ -102,8 +102,11 @@
 <script type="text/javascript">
     $(function () {
         //sembunyikan form filter
+        var isfilter = '{{isset($isfilter)?$isfilter:""}}';
         $('#formFilter').hide();
-        $('#btnFilter').click();
+        if (!isfilter) {
+            $('#btnFilter').click();
+        }
         $('#formFilter').show();
         $('.btn-delete').click(function () {
             if (confirm('Hapus data ini?')) {

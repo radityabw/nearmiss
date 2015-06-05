@@ -23,12 +23,24 @@
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="master/safetycedera/new" method="POST" >
+                <form role="form" action="master/safetycedera/edit" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="box-body">
                       <div class="form-group">
+                          <label for="exampleInputPassword1">Code</label>
+                          <input value="{{$data->code}}" readonly type="text" name="code" class="form-control" required >
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">User Pembuat</label>
+                          <input value="{{$data->userupd}}" readonly type="text" name="userupd" class="form-control" required >
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Tanggal Pembuatan</label>
+                          <input value="{{$data->tglupd}}" readonly type="text" name="tglupd" class="form-control" required >
+                      </div>
+                      <div class="form-group">
                           <label for="exampleInputPassword1">Deskripsi</label>
-                          <input autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" required maxlength="150">
+                          <input value="{{$data->description}}" autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" required maxlength="150">
                       </div>
                   </div><!-- /.box-body -->
 

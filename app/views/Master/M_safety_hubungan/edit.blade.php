@@ -10,11 +10,8 @@
     <section class="content-header">
         <h1>
             Master Safety Hubungan
-        </h1>
-        <!--          <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                  </ol>-->
+            <small>New</small>
+          </h1>
     </section>
 
     <!-- Main content -->
@@ -22,17 +19,28 @@
         <div class="box box-primary">
                 <div class="box-header">
                     <div class="pull-right" >
-                        <a class="btn btn-danger">Cancel</a>
+                        <a href="master/safetyhubungan" class="btn btn-danger">Cancel</a>
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" action="master/safetyhubungan/edit" method="POST" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                    <input type="hidden" name="safetyhubungan_code" value="{{$safetyhubungan->Code}}"/> 
                   <div class="box-body">
                       <div class="form-group">
-                          <label for="exampleInputPassword1">Desc</label>
-                          <input type="text" name="desc" class="form-control" placeholder="Desc" value="{{$safetyhubungan->Description}}" required>
+                          <label for="exampleInputPassword1">Code</label>
+                          <input value="{{$data->code}}" readonly type="text" name="code" class="form-control" required >
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">User Pembuat</label>
+                          <input value="{{$data->userupd}}" readonly type="text" name="userupd" class="form-control" required >
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Tanggal Pembuatan</label>
+                          <input value="{{$data->tglupd}}" readonly type="text" name="tglupd" class="form-control" required >
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputPassword1">Deskripsi</label>
+                          <input value="{{$data->description}}" autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" required maxlength="150">
                       </div>
                   </div><!-- /.box-body -->
 

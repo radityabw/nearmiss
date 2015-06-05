@@ -10,11 +10,8 @@
     <section class="content-header">
         <h1>
             Master Safety Hubungan
-        </h1>
-        <!--          <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                  </ol>-->
+            <small>New</small>
+          </h1>
     </section>
 
     <!-- Main content -->
@@ -22,7 +19,7 @@
         <div class="box box-primary">
                 <div class="box-header">
                     <div class="pull-right" >
-                        <a class="btn btn-danger">Cancel</a>
+                        <a href="master/safetyhubungan" class="btn btn-danger">Cancel</a>
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
@@ -30,8 +27,8 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="box-body">
                       <div class="form-group">
-                          <label for="exampleInputPassword1">Desc</label>
-                          <input type="text" name="desc" class="form-control" placeholder="Desc" required>
+                          <label for="exampleInputPassword1">Deskripsi</label>
+                          <input autofocus type="text" name="desc" class="form-control" placeholder="Deskripsi" required maxlength="150">
                       </div>
                   </div><!-- /.box-body -->
 

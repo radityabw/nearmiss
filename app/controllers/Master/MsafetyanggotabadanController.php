@@ -27,20 +27,30 @@ class MsafetyanggotabadanController extends \BaseController {
                     'data' => $data
         ));
     }
-    
-    function postEdit(){
+
+    function postEdit() {
         \DB::table('safety_anggotabadan')
-                ->where('code',\Input::get('code'))
+                ->where('code', \Input::get('code'))
                 ->update(array(
-                    'description'=>\Input::get('desc')
-                ));
-        
+                    'description' => \Input::get('desc')
+        ));
+
         return \Redirect::back();
     }
 
     function getDelete($id) {
         \DB::table('safety_anggotabadan')->where('code', $id)->delete();
         return \Redirect::back();
+    }
+
+    function postFilter() {
+        $data = \DB::table('safety_anggotabadan')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        return \View::make('Master/M_safety_anggotabadan/index', [
+                    'data' => $data,
+                    'isfilter' => true,
+                    'filter_col' => \Input::get('column'),
+                    'filter_val' => \Input::get('value')
+        ]);
     }
 
 }

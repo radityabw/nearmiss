@@ -218,21 +218,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
-                    <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
                         <li class="header">MENU UTAMA</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="home"><i class='fa fa-home'></i> <span>Home</span></a></li>
+                        @foreach($menus as $mn)
+                        @if(count($mn->child)>0)
                         <li class="treeview">
-                            <a href="home"><i class='fa fa-th-large'></i> <span>Master</span> <i class="fa fa-angle-left pull-right"></i></a>
+                            <a href="home"><i class='fa {{$mn->icon}}'></i> <span>{{$mn->nama}}</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="master/safetyanggotabadan">Anggota Badan</a></li>
-                                <li><a href="master/safetycedera">Safety Cedera</a></li>
-                                <li><a href="master/safetyhubungan">Safety Hubungan</a></li>
-                                <li><a href="#">Link in level 2</a></li>
+                                @foreach($mn->child as $ch)
+                                <li><a href="{{$ch->url}}">{{$ch->nama}}</a></li>
+                                @endforeach
                             </ul>
                         </li>
-                    </ul><!-- /.sidebar-menu -->
+                        @else
+                        <li class="active"><a href="{{$mn->url}}"><i class='fa {{$mn->icon}}'></i> <span>{{$mn->nama}}</span></a></li>
+                        @endif
+                        
+                        @endforeach
+                    </ul>
                 </section>
                 <!-- /.sidebar -->
             </aside>
