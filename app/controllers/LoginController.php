@@ -5,7 +5,11 @@ namespace App\Controllers;
 class LoginController extends \BaseController {
 
     function getIndex() {
-        return \View::make('login');
+        if (\Auth::check()) {
+            return \Redirect::to('home');
+        } else {
+            return \View::make('login');
+        }
     }
 
     function postAuth() {
@@ -17,7 +21,7 @@ class LoginController extends \BaseController {
         try {
             \Illuminate\Support\Facades\Auth::attempt($creds);
 
-            
+
             $user = \Toddish\Verify\Models\User::where('username', \Input::get('username'))->first();
 
             \Session::put('onuser_id', $user->id);
@@ -34,6 +38,12 @@ class LoginController extends \BaseController {
             }
             return Response::error('404');
         }
+    }
+
+    function getLogout() {
+        \Auth::logout();
+        \Session::flush();
+        return \Redirect::to('login');
     }
 
 }

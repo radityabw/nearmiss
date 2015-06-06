@@ -171,36 +171,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs">User</span>
+                                    <span class="hidden-xs">{{\Session::get('onusername')}}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                      <!--<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />-->
+                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                         <p>
-                                            admin - Administrator
-                                            <!--<small>Member since Nov. 2012</small>-->
+                                            {{\Session::get('onusername')}} - Web Developer
+                                            <small>Member since Nov. 2012</small>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
-                                    <!--                  <li class="user-body">
-                                                        <div class="col-xs-4 text-center">
-                                                          <a href="#">Followers</a>
-                                                        </div>
-                                                        <div class="col-xs-4 text-center">
-                                                          <a href="#">Sales</a>
-                                                        </div>
-                                                        <div class="col-xs-4 text-center">
-                                                          <a href="#">Friends</a>
-                                                        </div>
-                                                      </li>-->
+                                    <li class="user-body">
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Followers</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Sales</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Friends</a>
+                                        </div>
+                                    </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
-                                        <!--                    <div class="pull-left">
-                                                              <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                                            </div>-->
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="logout" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -234,7 +234,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @else
                         <li class="{{(Request::is($mn->if_url)?'active':'')}}"><a href="{{$mn->url}}"><i class='fa {{$mn->icon}}'></i> <span>{{$mn->nama}}</span></a></li>
                         @endif
-                        
+
                         @endforeach
                     </ul>
                 </section>
@@ -326,7 +326,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/app.min.js" type="text/javascript"></script>
-        
+
         @yield('scripts')
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
