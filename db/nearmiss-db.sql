@@ -563,7 +563,7 @@ CREATE TABLE IF NOT EXISTS `safety_jp` (
   PRIMARY KEY (`code`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_907943848` (`rowguid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Jenis Pekerjaan';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='Jenis Pekerjaan';
 
 -- Dumping data for table she.safety_jp: ~11 rows (approximately)
 DELETE FROM `safety_jp`;
@@ -1343,9 +1343,9 @@ CREATE TABLE IF NOT EXISTS `tsvendor` (
   PRIMARY KEY (`fcvendorid`),
   UNIQUE KEY `rowguid` (`rowguid`),
   KEY `index_1428200138` (`rowguid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table she.tsvendor: ~0 rows (approximately)
+-- Dumping data for table she.tsvendor: ~4 rows (approximately)
 DELETE FROM `tsvendor`;
 /*!40000 ALTER TABLE `tsvendor` DISABLE KEYS */;
 INSERT INTO `tsvendor` (`fcname`, `fcdesc`, `fccontperson`, `fcphone`, `fcfax`, `fcemail`, `fcuserid`, `fctanggal`, `rowguid`, `fcvendorid`, `fcaddress`) VALUES
@@ -1382,7 +1382,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `password`, `salt`, `email`, `remember_token`, `verified`, `disabled`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'admin', '$2a$08$Afz2r1HFDMA8cSoo6GwkCOlAQSHGMMNdO31aDenx10iUfKiANITHO', '8ba5d18b4cd2b70626a912a775f94658', 'admin@example.com', NULL, 1, 0, '2015-06-04 07:49:16', '2015-06-04 07:49:16', NULL);
+	(1, 'admin', '$2a$08$Afz2r1HFDMA8cSoo6GwkCOlAQSHGMMNdO31aDenx10iUfKiANITHO', '8ba5d18b4cd2b70626a912a775f94658', 'admin@example.com', 'qINoBOFQL4jjgUBEbiHIzB3wVnysAG3aixgYqtv4hOLsSGmmmv8Z9rQqGmXZ', 1, 0, '2015-06-04 07:49:16', '2015-06-06 05:43:08', NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

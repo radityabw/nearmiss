@@ -31,6 +31,10 @@ Route::group(array('before' => 'auth'), function() {
         Route::controller('safetyklasifikasi', 'App\Controllers\Master\MsafetyklasifikasiController');
         Route::controller('group', 'App\Controllers\Master\MgroupController');
         Route::controller('vendor', 'App\Controllers\Master\MvendorController');
+        Route::controller('departemen', 'App\Controllers\Master\MdepartemenController');
+        Route::controller('pegawai', 'App\Controllers\Master\MpegawaiController');
+        Route::controller('workreq', 'App\Controllers\Master\MworkreqController');
+        Route::controller('safetysumberp', 'App\Controllers\Master\MsafetysumberpController');
     });
 });
 
