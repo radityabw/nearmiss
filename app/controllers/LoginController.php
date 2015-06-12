@@ -24,7 +24,7 @@ class LoginController extends \BaseController {
 
             $user = \Toddish\Verify\Models\User::where('username', \Input::get('username'))->first();
 
-            \Session::put('onuser_id', $user->id);
+            \Session::put('onuserid', $user->id);
             \Session::put('onusername', $user->username);
             \Session::put('islogin', true);
 

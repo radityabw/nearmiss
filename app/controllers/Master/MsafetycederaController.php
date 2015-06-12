@@ -5,7 +5,7 @@ namespace App\Controllers\Master;
 class MsafetycederaController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('safety_cedera')->orderBy('tglupd', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('sf_cedera')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_cedera/index', [
                     'data' => $data
         ]);
@@ -22,14 +22,14 @@ class MsafetycederaController extends \BaseController {
     }
 
     function getEdit($id) {
-        $data = \DB::table('safety_cedera')->where('code', $id)->first();
+        $data = \DB::table('sf_cedera')->where('code', $id)->first();
         return \View::make('Master/M_safety_cedera/edit', array(
                     'data' => $data
         ));
     }
 
     function postEdit() {
-        \DB::table('safety_cedera')
+        \DB::table('sf_cedera')
                 ->where('code', \Input::get('code'))
                 ->update(array(
                     'description' => \Input::get('desc')
@@ -39,12 +39,12 @@ class MsafetycederaController extends \BaseController {
     }
 
     function getDelete($id) {
-        \DB::table('safety_cedera')->where('code', $id)->delete();
+        \DB::table('sf_cedera')->where('code', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('safety_cedera')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('sf_cedera')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_cedera/index', [
                     'data' => $data,
                     'isfilter' => true,
