@@ -5,9 +5,16 @@ namespace App\Controllers\Master;
 class MsafetycederaController extends \BaseController {
 
     function getIndex() {
-        $data = \DB::table('sf_cedera')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
+        $colarr = array(
+            'code' => 'Kode',
+            'desk' => 'Deskripsi',
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan'
+        );
+        $data = \DB::table('VIEW_SF_CEDERA')->orderBy('created_at', 'desc')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_cedera/index', [
-                    'data' => $data
+                    'data' => $data,
+                    'colarr' => $colarr
         ]);
     }
 
@@ -16,13 +23,13 @@ class MsafetycederaController extends \BaseController {
     }
 
     function postNew() {
-        \DB::select("CALL SP_INSERT_SAFETY_CEDERA('" . \Input::get('desc') . "', '" . \Session::get('onusername') . "')");
+        \DB::select("CALL SP_INSERT_SAFETY_CEDERA('" . \Input::get('desc') . "', '" . \Session::get('onuserid') . "')");
 
         return \Redirect::to('master/safetycedera');
     }
 
     function getEdit($id) {
-        $data = \DB::table('sf_cedera')->where('code', $id)->first();
+        $data = \DB::table('VIEW_SF_CEDERA')->where('id', $id)->first();
         return \View::make('Master/M_safety_cedera/edit', array(
                     'data' => $data
         ));
@@ -30,26 +37,33 @@ class MsafetycederaController extends \BaseController {
 
     function postEdit() {
         \DB::table('sf_cedera')
-                ->where('code', \Input::get('code'))
+                ->where('id', \Input::get('dataid'))
                 ->update(array(
-                    'description' => \Input::get('desc')
+                    'desk' => \Input::get('desc')
         ));
 
         return \Redirect::back();
     }
 
     function getDelete($id) {
-        \DB::table('sf_cedera')->where('code', $id)->delete();
+        \DB::table('sf_cedera')->where('id', $id)->delete();
         return \Redirect::back();
     }
 
     function postFilter() {
-        $data = \DB::table('sf_cedera')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        $colarr = array(
+            'code' => 'Kode',
+            'desk' => 'Deskripsi',
+            'username' => 'User Pembuat',
+            'created_at' => 'Tanggal Pembuatan'
+        );
+        $data = \DB::table('VIEW_SF_CEDERA')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_cedera/index', [
                     'data' => $data,
                     'isfilter' => true,
                     'filter_col' => \Input::get('column'),
-                    'filter_val' => \Input::get('value')
+                    'filter_val' => \Input::get('value'),
+                    'colarr' => $colarr
         ]);
     }
 

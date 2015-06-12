@@ -57,7 +57,7 @@ class MsafetyanggotabadanController extends \BaseController {
             'username' => 'User Pembuat',
             'created_at' => 'Tanggal Pembuatan'
         );
-        $data = \DB::table('sf_anggota_badan')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
+        $data = \DB::table('VIEW_SF_ANGGOTA_BADAN')->where(\Input::get('column'), 'like', '%' . \Input::get('value') . '%')->paginate(\Helpers::constval('show_number_datatable'));
         return \View::make('Master/M_safety_anggotabadan/index', [
                     'data' => $data,
                     'isfilter' => true,

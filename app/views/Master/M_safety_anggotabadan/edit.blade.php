@@ -37,7 +37,7 @@
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">Tanggal Pembuatan</label>
-                          <input value="{{$data->created_at}}" readonly type="text" name="created_at" class="form-control" required >
+                          <input value="{{date('d-m-Y', strtotime($data->created_at))}}" readonly type="text" name="created_at" class="form-control" required >
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">Deskripsi</label>
